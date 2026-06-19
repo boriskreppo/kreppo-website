@@ -54,6 +54,10 @@
   margin-top: 32px;
 }
 
+.contact-spacer {
+  height: 80px;
+}
+
 /* ── Footer ── */
 .footer {
   margin-top: 0;
