@@ -2,12 +2,15 @@
   const petals = document.querySelector('.intro__svg g[clip-path="url(#s2c2)"]');
   if (!petals) return;
 
-  // 4 latica su oko centra ~(127, 112) u SVG koordinatama
-  // SVG je 192x170, pa je origin u sredini cveća
-  const originX = '50%';
-  const originY = '50%';
+  // Latica su u clipPath x="85" y="85" width="85" height="85"
+  // Center je 85 + 42.5 = 127.5, 85 + 42.5 = 127.5 (u SVG viewBox koordinatama)
+  // ViewBox je 192x170, pa konvertujem u procente: (127.5/192)*100, (127.5/170)*100
+  const originXPercent = (127.5 / 192) * 100;
+  const originYPercent = (127.5 / 170) * 100;
 
-  petals.style.transformOrigin = `${originX} ${originY}`;
+  petals.setAttribute('transform-origin', `${originXPercent}% ${originYPercent}%`);
+  petals.style.transformOrigin = `${originXPercent}% ${originYPercent}%`;
+  petals.style.transformBox = 'fill-box';
 
   ScrollTrigger.create({
     trigger: '.intro',
