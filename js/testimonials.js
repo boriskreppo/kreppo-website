@@ -48,6 +48,12 @@
     return el;
   }
 
+  // Get the resting transform for card at position i
+  function restTransform(i) {
+    if (i === 0) return { lift: 0, scale: 1 };
+    return { lift: i * STACK_LIFT_PX, scale: 1 - i * STACK_SCALE_STEP };
+  }
+
   function layout() {
     const tCard = reducedMotion ? 'transform .1s linear' : 'transform .3s ease';
     const tFill = reducedMotion ? 'background .1s linear'
@@ -73,8 +79,7 @@
         fill.style.background = BACK_TINT;
         fill.style.backdropFilter = `blur(${BACK_BLUR_PX}px)`;
         fill.style.webkitBackdropFilter = `blur(${BACK_BLUR_PX}px)`;
-        const lift = i * STACK_LIFT_PX;
-        const scale = 1 - i * STACK_SCALE_STEP;
+        const { lift, scale } = restTransform(i);
         card.style.transform = `translateY(-${lift}px) scale(${scale})`;
       }
     });
@@ -91,7 +96,7 @@
 
   // Drag logic
   let dragging = false, intentResolved = false, startX = 0, startY = 0, dx = 0, dy = 0, cardWidth = 0, activePointerId = null;
-  const INTENT_THRESHOLD = 6; // px — minimum move before we decide intent
+  const INTENT_THRESHOLD = 6;
 
   function topCard() { return order[0]; }
 
@@ -106,8 +111,6 @@
     startY = e.clientY;
     dx = 0; dy = 0;
     card.classList.add('dragging');
-    // Remove transitions from all cards so drag updates are instant
-    order.forEach(c => { c.style.transition = 'none'; });
   });
 
   stackEl.addEventListener('pointermove', (e) => {
@@ -117,39 +120,39 @@
 
     if (!intentResolved) {
       if (Math.abs(movX) < INTENT_THRESHOLD && Math.abs(movY) < INTENT_THRESHOLD) return;
-      // If first significant move is more vertical than horizontal — cancel drag, let scroll happen
       if (Math.abs(movY) > Math.abs(movX)) {
         dragging = false;
         intentResolved = false;
         topCard().classList.remove('dragging');
         return;
       }
-      // Horizontal intent confirmed — capture pointer now
       intentResolved = true;
       topCard().setPointerCapture(e.pointerId);
+      // Kill transitions on all cards for instant response
+      order.forEach(c => { c.style.transition = 'none'; });
     }
 
     dx = movX;
     dy = movY;
 
-    // Animate all visible cards proportionally to drag
+    // How far through the threshold (0 → 1)
     const dragProgress = Math.min(Math.abs(dx) / (cardWidth * THRESHOLD_RATIO), 1);
 
     order.forEach((card, i) => {
       if (i > STACK_MAX_VISIBLE - 1) return;
 
-      const rotate = reducedMotion ? 0 : dx / ROTATION_DIVISOR;
-
       if (i === 0) {
-        // Front card follows drag
+        // Front card follows finger
+        const rotate = reducedMotion ? 0 : dx / ROTATION_DIVISOR;
         card.style.transform = `translate(${dx}px, ${dy}px) rotate(${rotate}deg)`;
       } else {
-        // Back cards move forward proportionally to drag
-        const liftReduction = dragProgress * i * STACK_LIFT_PX;
-        const scaleIncrease = dragProgress * i * STACK_SCALE_STEP;
-        const newLift = i * STACK_LIFT_PX - liftReduction;
-        const newScale = 1 - i * STACK_SCALE_STEP + scaleIncrease;
-        card.style.transform = `translateY(-${newLift}px) scale(${newScale})`;
+        // Each back card moves one step forward proportionally
+        // Position i lerps toward position i-1
+        const from = restTransform(i);
+        const to = restTransform(i - 1);
+        const lift = from.lift + (to.lift - from.lift) * dragProgress;
+        const scale = from.scale + (to.scale - from.scale) * dragProgress;
+        card.style.transform = `translateY(-${lift}px) scale(${scale})`;
       }
     });
   });
@@ -166,7 +169,7 @@
       if (Math.abs(dx) > threshold) {
         release(card, dx > 0 ? 1 : -1);
       } else {
-        snapBack(card);
+        snapBack();
       }
     }
     dx = 0; dy = 0; activePointerId = null; intentResolved = false;
@@ -176,24 +179,54 @@
   stackEl.addEventListener('pointercancel', endDrag);
   stackEl.addEventListener('pointerleave', (e) => { if (dragging) endDrag(e); });
 
-  function snapBack(card) {
-    card.style.transition = reducedMotion ? 'transform .1s linear' : `transform ${SNAP_DURATION}ms cubic-bezier(.2,.8,.2,1)`;
-    card.style.transform = 'translate(0,0) rotate(0deg)';
+  function snapBack() {
+    // Smoothly return ALL visible cards to their resting positions
+    const transition = reducedMotion ? 'transform .1s linear' : `transform ${SNAP_DURATION}ms cubic-bezier(.2,.8,.2,1)`;
+    order.forEach((card, i) => {
+      if (i > STACK_MAX_VISIBLE - 1) return;
+      card.style.transition = transition;
+      const { lift, scale } = restTransform(i);
+      if (i === 0) {
+        card.style.transform = 'translate(0,0) rotate(0deg)';
+      } else {
+        card.style.transform = `translateY(-${lift}px) scale(${scale})`;
+      }
+    });
   }
 
   function release(card, direction) {
     const flyX = direction * window.innerWidth;
     const flyY = dy * 1.4;
     const rotate = reducedMotion ? 0 : direction * 24;
+
+    // Animate front card off screen
     card.style.transition = reducedMotion
       ? 'transform .15s linear, opacity .15s linear'
       : `transform ${FLY_DURATION}ms ease-out, opacity ${FLY_DURATION}ms ease-out`;
     card.style.transform = `translate(${flyX}px, ${flyY}px) rotate(${rotate}deg)`;
     card.style.opacity = 0;
-    card.addEventListener('transitionend', function onEnd() {
+
+    // Simultaneously animate back cards to their new positions
+    const transition = reducedMotion ? 'transform .15s linear' : `transform ${FLY_DURATION}ms ease-out`;
+    order.forEach((c, i) => {
+      if (i === 0 || i > STACK_MAX_VISIBLE - 1) return;
+      c.style.transition = transition;
+      const { lift, scale } = restTransform(i - 1);
+      if (i - 1 === 0) {
+        c.style.transform = 'translateY(0) scale(1)';
+        const fill = c.querySelector('.card__fill');
+        fill.style.background = 'var(--color-white)';
+        fill.style.backdropFilter = 'none';
+        fill.style.webkitBackdropFilter = 'none';
+      } else {
+        c.style.transform = `translateY(-${lift}px) scale(${scale})`;
+      }
+    });
+
+    card.addEventListener('transitionend', function onEnd(evt) {
+      if (evt.propertyName !== 'transform') return;
       card.removeEventListener('transitionend', onEnd);
 
-      // Reset card transform and move to bottom of stack
       order.shift();
       card.style.transition = 'none';
       card.style.transform = '';
@@ -202,7 +235,7 @@
       stackEl.appendChild(card);
 
       layout();
-    }, { once: true });
+    });
   }
 
   renderInitial();
