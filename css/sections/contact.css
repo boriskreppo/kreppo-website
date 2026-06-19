@@ -3,6 +3,7 @@
   padding: 20px var(--page-px) 20px;
   position: relative;
   z-index: 1;
+  background: var(--color-bg);
 }
 
 .contact__label {
