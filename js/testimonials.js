@@ -139,20 +139,30 @@
     const dragProgress = Math.min(Math.abs(dx) / (cardWidth * THRESHOLD_RATIO), 1);
 
     order.forEach((card, i) => {
-      if (i > STACK_MAX_VISIBLE - 1) return;
+      if (i > STACK_MAX_VISIBLE) return;
 
       if (i === 0) {
         // Front card follows finger
         const rotate = reducedMotion ? 0 : dx / ROTATION_DIVISOR;
         card.style.transform = `translate(${dx}px, ${dy}px) rotate(${rotate}deg)`;
-      } else {
-        // Each back card moves one step forward proportionally
-        // Position i lerps toward position i-1
+      } else if (i <= STACK_MAX_VISIBLE - 1) {
+        // Visible back cards move one step forward
         const from = restTransform(i);
         const to = restTransform(i - 1);
         const lift = from.lift + (to.lift - from.lift) * dragProgress;
         const scale = from.scale + (to.scale - from.scale) * dragProgress;
         card.style.transform = `translateY(-${lift}px) scale(${scale})`;
+      } else if (i === STACK_MAX_VISIBLE) {
+        // Next hidden card — reveal and move toward last visible position
+        card.style.display = '';
+        card.style.transition = 'none';
+        const target = restTransform(STACK_MAX_VISIBLE - 1);
+        const startLift = target.lift + STACK_LIFT_PX;
+        const startScale = target.scale - STACK_SCALE_STEP;
+        const lift = startLift + (target.lift - startLift) * dragProgress;
+        const scale = startScale + (target.scale - startScale) * dragProgress;
+        card.style.transform = `translateY(-${lift}px) scale(${scale})`;
+        card.style.opacity = dragProgress;
       }
     });
   });
@@ -180,16 +190,19 @@
   stackEl.addEventListener('pointerleave', (e) => { if (dragging) endDrag(e); });
 
   function snapBack() {
-    // Smoothly return ALL visible cards to their resting positions
     const transition = reducedMotion ? 'transform .1s linear' : `transform ${SNAP_DURATION}ms cubic-bezier(.2,.8,.2,1)`;
     order.forEach((card, i) => {
-      if (i > STACK_MAX_VISIBLE - 1) return;
+      if (i > STACK_MAX_VISIBLE) return;
       card.style.transition = transition;
-      const { lift, scale } = restTransform(i);
       if (i === 0) {
         card.style.transform = 'translate(0,0) rotate(0deg)';
-      } else {
+      } else if (i <= STACK_MAX_VISIBLE - 1) {
+        const { lift, scale } = restTransform(i);
         card.style.transform = `translateY(-${lift}px) scale(${scale})`;
+      } else if (i === STACK_MAX_VISIBLE) {
+        // Hide the next card back
+        card.style.opacity = 0;
+        setTimeout(() => { card.style.display = 'none'; card.style.opacity = 1; }, SNAP_DURATION);
       }
     });
   }
