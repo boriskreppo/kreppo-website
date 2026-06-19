@@ -126,13 +126,33 @@
       intentResolved = true;
       topCard().setPointerCapture(e.pointerId);
       topCard().style.transition = 'none';
+      // Disable transitions for all cards during drag
+      order.forEach(card => card.style.transition = 'none');
     }
 
-    const card = topCard();
     dx = movX;
     dy = movY;
-    const rotate = reducedMotion ? 0 : dx / ROTATION_DIVISOR;
-    card.style.transform = `translate(${dx}px, ${dy}px) rotate(${rotate}deg)`;
+
+    // Animate all visible cards proportionally to drag
+    const dragProgress = Math.min(Math.abs(dx) / (cardWidth * THRESHOLD_RATIO), 1);
+
+    order.forEach((card, i) => {
+      if (i > STACK_MAX_VISIBLE - 1) return;
+
+      const rotate = reducedMotion ? 0 : dx / ROTATION_DIVISOR;
+
+      if (i === 0) {
+        // Front card follows drag
+        card.style.transform = `translate(${dx}px, ${dy}px) rotate(${rotate}deg)`;
+      } else {
+        // Back cards move forward proportionally to drag
+        const liftReduction = dragProgress * i * STACK_LIFT_PX;
+        const scaleIncrease = dragProgress * i * STACK_SCALE_STEP;
+        const newLift = i * STACK_LIFT_PX - liftReduction;
+        const newScale = 1 - i * STACK_SCALE_STEP + scaleIncrease;
+        card.style.transform = `translateY(-${newLift}px) scale(${newScale})`;
+      }
+    });
   });
 
   function endDrag(e) {

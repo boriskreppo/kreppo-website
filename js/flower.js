@@ -10,7 +10,7 @@
     start: 'top bottom',
     end: 'bottom top',
     onUpdate: (self) => {
-      const rotation = self.progress * 360;
+      const rotation = self.progress * 540;
       petals.style.transform = `rotate(${rotation}deg)`;
     }
   });
