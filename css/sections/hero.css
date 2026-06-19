@@ -114,11 +114,17 @@
 .menu-btn__expanded {
   display: none;
   align-items: center;
-  gap: 16px;
+  gap: 0;
   height: 40px;
-  padding: 0 16px 0 4px;
+  padding: 0 16px;
   background: var(--color-white);
   border-radius: var(--radius-pill);
+  position: fixed;
+  left: 16px;
+  right: 16px;
+  width: calc(100% - 32px);
+  bottom: 32px;
+  justify-content: space-between;
 }
 
 .menu-btn__link {
