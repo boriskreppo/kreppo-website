@@ -1,0 +1,61 @@
+/* ── How We Work ── */
+.process {
+  padding: 60px 0 0;
+}
+
+.process__title {
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 50px;
+  color: var(--color-black);
+  margin-bottom: 32px;
+  padding: 0 var(--page-px);
+}
+
+/* Horizontal scroll for steps */
+.process__track {
+  display: flex;
+  align-items: stretch;
+  gap: 43px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-snap-stop: always;
+  scroll-padding-left: var(--page-px);
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  padding: 0 48px 8px var(--page-px);
+}
+
+.process__track::-webkit-scrollbar {
+  display: none;
+}
+
+.process__step {
+  flex-shrink: 0;
+  width: 226px;
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+}
+
+.process__step-name {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 26px;
+  color: var(--color-black);
+  margin-bottom: 14px;
+}
+
+.process__step-desc {
+  flex: 1;
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--color-black);
+  margin-bottom: 14px;
+}
+
+.process__step-num {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--color-black);
+}

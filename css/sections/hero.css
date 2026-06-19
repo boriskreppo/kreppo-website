@@ -1,0 +1,138 @@
+/* ── Hero ── */
+.hero {
+  overflow-x: hidden;
+}
+
+/* ── Display Title ── */
+/* Figma: "kreppo" left:70, "studio" left:142, font:88px, 375px wide */
+.hero__display {
+  padding-top: 20px;
+}
+
+.hero__display-line {
+  font-size: 23.47vw;
+  font-weight: 700;
+  color: var(--color-black);
+  line-height: 0.92;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+  display: block;
+}
+
+.hero__display-line:nth-child(1) {
+  padding-left: 18.67vw;
+}
+
+.hero__display-line:nth-child(2) {
+  padding-left: 37.87vw;
+}
+
+/* ── Side label ── */
+/* Figma: left:16, top:238, font:14px/700/uppercase, line-height tight */
+.hero__side-label {
+  padding: 10px 0 10px var(--page-px);
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  line-height: 1.1;
+  color: var(--color-black);
+  width: 80px;
+}
+
+/* ── Media row ── */
+/* Figma: left:16, width:343, height:500, radius:16 */
+.hero__media-row {
+  position: relative;
+  margin: 0 var(--page-px);
+}
+
+.hero__media {
+  width: 100%;
+  height: 500px;
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: #C4C4C4;
+}
+
+.hero__media video,
+.hero__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ── Menu button — fixed, -32px from bottom of viewport ── */
+.menu-btn {
+  position: fixed;
+  bottom: 32px;
+  right: var(--page-px);
+  z-index: 200;
+  cursor: pointer;
+}
+
+/* Collapsed: "menu ←" */
+.menu-btn__collapsed {
+  display: flex;
+  align-items: center;
+}
+
+.menu-btn__pill {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  padding: 0 20px;
+  background: var(--color-white);
+  border-radius: var(--radius-pill);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--color-black);
+}
+
+.menu-btn__circle {
+  width: 40px;
+  height: 40px;
+  background: var(--color-white);
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: -4px;
+  flex-shrink: 0;
+}
+
+.menu-btn__arrow {
+  width: 20px;
+  height: 20px;
+}
+
+.menu-btn__arrow--flip {
+  transform: scaleX(-1);
+}
+
+/* Expanded: "→ work services about contact" */
+.menu-btn__expanded {
+  display: none;
+  align-items: center;
+  gap: 16px;
+  height: 40px;
+  padding: 0 16px 0 4px;
+  background: var(--color-white);
+  border-radius: var(--radius-pill);
+}
+
+.menu-btn__link {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--color-black);
+  text-decoration: none;
+}
+
+.menu-btn.is-open .menu-btn__collapsed {
+  display: none;
+}
+
+.menu-btn.is-open .menu-btn__expanded {
+  display: flex;
+}
+

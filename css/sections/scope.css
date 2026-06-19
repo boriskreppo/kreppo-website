@@ -1,0 +1,88 @@
+/* ── Scope of Work ── */
+.scope {
+  padding: 60px var(--page-px) 0;
+}
+
+.scope__title {
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 50px;
+  color: var(--color-black);
+  margin-bottom: 32px;
+}
+
+.scope__list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.scope__item {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.scope__item-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.scope__item-name {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 26px;
+  color: var(--color-black);
+}
+
+.scope__item-icon {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+.scope__item-desc {
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--color-black);
+}
+
+/* ── See all talents CTA ── */
+.scope__cta {
+  position: relative;
+  margin-top: 60px;
+}
+
+.scope__cta-video {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 70%;
+  mix-blend-mode: darken;
+  display: block;
+  pointer-events: none;
+}
+
+.scope__cta-top {
+  position: relative;
+  z-index: 1;
+}
+
+.scope__cta-text {
+  font-size: 64px;
+  font-weight: 700;
+  line-height: 64px;
+  padding-left: 0px;
+  color: var(--color-lime);
+}
+
+.scope__cta-arrow {
+  width: 24px;
+  height: 24px;
+  display: block;
+  margin-top: 16px;
+  margin-left: 0px;
+  position: relative;
+  z-index: 1;
+}

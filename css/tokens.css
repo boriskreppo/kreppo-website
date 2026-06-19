@@ -1,0 +1,23 @@
+:root {
+  /* ── Palette ── */
+  --color-lime:    #E2F271;
+  --color-grey:    #D6D6D6;
+  --color-black:   #000000;
+  --color-white:   #FFFFFF;
+  --color-black-20: rgba(0, 0, 0, 0.20);
+  --color-white-30: rgba(255, 255, 255, 0.30);
+
+  /* ── Typography ── */
+  --font: 'Public Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+  /* ── Spacing ── */
+  --page-px: 16px;
+  --content-w: 343px;
+  --radius: 16px;
+  --radius-pill: 30px;
+  --radius-full: 9999px;
+
+  /* ── Transitions ── */
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur: 0.4s;
+}

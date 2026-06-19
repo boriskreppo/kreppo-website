@@ -1,0 +1,139 @@
+/* ── Get in Touch ── */
+.contact {
+  padding: 60px var(--page-px) 40px;
+}
+
+.contact__label {
+  font-size: 16px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--color-black);
+  margin-bottom: 32px;
+}
+
+.contact__links {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  text-align: right;
+}
+
+.contact__link {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 60px;
+  color: rgba(0,0,0,0.2);
+  transition: color 0.3s ease;
+}
+
+.contact__link.is-active {
+  color: var(--color-black);
+}
+
+.contact__icon {
+  width: 20px;
+  height: 20px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  flex-shrink: 0;
+}
+
+.contact__link.is-active .contact__icon {
+  opacity: 1;
+}
+
+.contact__book {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--color-black);
+  text-align: center;
+  margin-top: 32px;
+}
+
+/* ── Footer ── */
+.footer {
+  margin-top: 40px;
+  background: var(--color-black);
+  border-radius: var(--radius) var(--radius) 0 0;
+  padding: 48px var(--page-px) 60px;
+  color: var(--color-white);
+}
+
+.footer__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 32px;
+}
+
+.footer__logo-dots {
+  position: relative;
+  width: 32px;
+  height: 26px;
+}
+
+.footer__logo-dots span {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: var(--color-white);
+  border-radius: var(--radius-full);
+}
+
+.footer__logo-dots span:nth-child(1) { left: 0;   top: 10px; }
+.footer__logo-dots span:nth-child(2) { left: 16px; top: 0; }
+.footer__logo-dots span:nth-child(3) { left: 6px;  top: 22px; }
+.footer__logo-dots span:nth-child(4) { left: 22px; top: 12px; }
+
+.footer__brand {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--color-white);
+}
+
+.footer__nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 48px;
+}
+
+.footer__nav-link {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--color-white);
+}
+
+.footer__cta {
+  font-size: 80px;
+  font-weight: 700;
+  line-height: 66px;
+  color: var(--color-white);
+  margin-bottom: 48px;
+}
+
+.footer__cta-dot {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  background: var(--color-lime);
+  border-radius: var(--radius-full);
+  vertical-align: baseline;
+  margin-left: 4px;
+}
+
+.footer__meta {
+  display: flex;
+  flex-direction: column;
+  gap: 29px;
+}
+
+.footer__meta-link {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--color-white);
+}

@@ -1,0 +1,26 @@
+html {
+  overflow-x: hidden;
+  background: var(--color-black);
+}
+
+body {
+  font-family: var(--font);
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--color-black);
+  background: var(--color-grey);
+  overflow-x: hidden;
+  width: 100%;
+}
+
+/* Section spacing helper */
+.section {
+  padding: 0 var(--page-px);
+}
+
+.section__title {
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 50px;
+  color: var(--color-black);
+}

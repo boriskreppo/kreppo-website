@@ -1,0 +1,58 @@
+/* ── Section 2: Digital product studio ── */
+.intro {
+  padding: 48px var(--page-px) 0;
+}
+
+.intro__title {
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 50px;
+  color: var(--color-black);
+  margin-bottom: 20px;
+}
+
+.intro__body {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--color-black);
+}
+
+/* SVG aligned right */
+.intro__visual {
+  display: flex;
+  justify-content: flex-end;
+  margin: 24px 0;
+}
+
+.intro__svg {
+  width: 192px;
+  height: 170px;
+}
+
+/* Client logos — auto-scrolling marquee */
+.intro__clients {
+  margin-top: 40px;
+  overflow: hidden;
+  width: 100%;
+}
+
+.intro__clients-track {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  width: max-content;
+  animation: marquee 10s linear infinite;
+}
+
+.intro__clients-track img {
+  height: 28px;
+  width: auto;
+  flex-shrink: 0;
+  filter: brightness(0);
+}
+
+@keyframes marquee {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}

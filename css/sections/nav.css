@@ -1,0 +1,64 @@
+/* ── Topbar ── */
+.topbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 32px var(--page-px) 24px;
+  box-sizing: border-box;
+  width: 100%;
+  /* background: linear-gradient(to bottom, #D6D6D6 60%, rgba(214, 214, 214, 0)); */
+}
+
+.topbar__logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.topbar__dots {
+  position: relative;
+  width: 32px;
+  height: 26px;
+}
+
+.topbar__dots span {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: var(--color-black);
+  border-radius: var(--radius-full);
+}
+
+.topbar__dots span:nth-child(1) { left: 0;   top: 10px; }
+.topbar__dots span:nth-child(2) { left: 16px; top: 0; }
+.topbar__dots span:nth-child(3) { left: 6px;  top: 22px; }
+.topbar__dots span:nth-child(4) { left: 22px; top: 12px; }
+
+.topbar__name {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--color-black);
+}
+
+.topbar__cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 36px;
+  padding: 0 16px;
+  background: var(--color-white);
+  border-radius: var(--radius-pill);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-black);
+}
+
+/* Top bar spacer */
+.topbar-spacer {
+  height: 80px;
+}
