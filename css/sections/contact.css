@@ -61,7 +61,7 @@
 
 /* ── Footer ── */
 .footer {
-  margin-top: 40px;
+  margin-top: 0;
   background: var(--color-black);
   border-radius: var(--radius) var(--radius) 0 0;
   padding: 48px var(--page-px) 60px;
