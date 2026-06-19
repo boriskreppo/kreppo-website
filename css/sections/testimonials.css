@@ -14,9 +14,12 @@
 /* ── Swipe card stack ── */
 .testimonials__cards {
   position: relative;
-  margin-top: 156px;
-  width: var(--content-w);
+  margin: 156px auto 0;
+  width: 100%;
+  max-width: var(--content-w);
   height: 560px;
+  padding: 0 var(--page-px);
+  box-sizing: border-box;
 }
 
 .testimonials__cards .card {
