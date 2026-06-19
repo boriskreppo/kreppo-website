@@ -6,8 +6,7 @@ const contactCount = contactLinks.length;
 ScrollTrigger.create({
   trigger: '.contact',
   pin: true,
-  pinSpacing: false,
-  start: 'bottom bottom',
+  start: 'center center',
   end: '+=' + ((contactCount - 1) * 80),
   snap: {
     snapTo: 1 / (contactCount - 1),
