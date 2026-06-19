@@ -1,6 +1,17 @@
 html {
   overflow-x: hidden;
   background: var(--color-black);
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  html {
+    background: var(--color-grey);
+  }
+  body {
+    background: var(--color-grey);
+    color: var(--color-black);
+  }
 }
 
 body {
