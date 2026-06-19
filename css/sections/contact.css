@@ -1,6 +1,7 @@
 /* ── Get in Touch ── */
 .contact {
   padding: 20px var(--page-px) 20px;
+  margin-bottom: 20px;
 }
 
 .contact__label {
