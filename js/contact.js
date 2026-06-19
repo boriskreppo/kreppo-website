@@ -7,8 +7,8 @@ ScrollTrigger.create({
   trigger: '.contact',
   pin: true,
   pinSpacing: false,
-  start: 'center center',
-  end: '+=' + (contactCount * 40),
+  start: 'top top',
+  end: '+=' + (contactCount * 60),
   snap: {
     snapTo: 1 / (contactCount - 1),
     duration: 0.3,

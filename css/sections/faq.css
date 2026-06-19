@@ -1,6 +1,6 @@
 /* ── FAQ ── */
 .faq {
-  padding: 60px var(--page-px) 20px;
+  padding: 40px var(--page-px) 8px;
 }
 
 .faq__title {
