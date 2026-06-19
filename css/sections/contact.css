@@ -1,6 +1,8 @@
 /* ── Get in Touch ── */
 .contact {
   padding: 20px var(--page-px) 20px;
+  position: relative;
+  z-index: 1;
 }
 
 .contact__label {
@@ -60,7 +62,7 @@
 
 /* ── Footer ── */
 .footer {
-  margin-top: 0;
+  margin-top: -240px;
   background: var(--color-black);
   border-radius: var(--radius) var(--radius) 0 0;
   padding: 48px var(--page-px) 60px;
