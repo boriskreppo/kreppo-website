@@ -7,17 +7,14 @@ ScrollTrigger.create({
   trigger: '.contact',
   pin: true,
   start: 'top top',
-  end: '+=' + (contactCount * 100),
+  end: '+=' + ((contactCount - 1) * 80),
   snap: {
     snapTo: 1 / (contactCount - 1),
     duration: 0.3,
     ease: 'power1.inOut'
   },
   onUpdate: (self) => {
-    const idx = Math.min(
-      Math.floor(self.progress * contactCount),
-      contactCount - 1
-    );
+    const idx = Math.round(self.progress * (contactCount - 1));
     contactLinks.forEach((link, i) => {
       link.classList.toggle('is-active', i === idx);
     });
