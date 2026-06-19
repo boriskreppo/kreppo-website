@@ -106,6 +106,8 @@
     startY = e.clientY;
     dx = 0; dy = 0;
     card.classList.add('dragging');
+    // Remove transitions from all cards so drag updates are instant
+    order.forEach(c => { c.style.transition = 'none'; });
   });
 
   stackEl.addEventListener('pointermove', (e) => {
@@ -125,9 +127,6 @@
       // Horizontal intent confirmed — capture pointer now
       intentResolved = true;
       topCard().setPointerCapture(e.pointerId);
-      topCard().style.transition = 'none';
-      // Disable transitions for all cards during drag
-      order.forEach(card => card.style.transition = 'none');
     }
 
     dx = movX;
